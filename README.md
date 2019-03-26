@@ -7,7 +7,6 @@ Check all my dependency
 ```
 $ mvn dependency:tree
 
-
 [INFO] ---------------< my.sheshenya:sample-netty-restful-api >----------------
 [INFO] Building sample-netty-restful-api 1.0-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
@@ -50,8 +49,8 @@ Host: localhost:8080
 User-Agent: HTTPie/1.0.2
 
 {
-    "account-source-id": "123,",
-    "account-target-id": "456,",
+    "account-from-id": "123,",
+    "account-to-id": "456,",
     "amount": "100"
 }
 
