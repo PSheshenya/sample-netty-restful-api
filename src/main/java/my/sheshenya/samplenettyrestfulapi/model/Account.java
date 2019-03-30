@@ -1,16 +1,32 @@
 package my.sheshenya.samplenettyrestfulapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Account {
 
-    private Long id;
+    @Getter
+    private String id;
+
+    @Getter @Setter
     private String name;
 
-    private double debit;
+    @Getter
+    private double balance = 0;
+
+    public Account(String id, String name, double initBalance) {
+        this.id = id;
+        this.name = name;
+
+        // is possible negative balance?
+        this.balance = initBalance;
+    }
+
+    public void withdraw(double amount) {
+        this.balance -= amount;
+    }
+
+    public void deposit(double amount) {
+        this.balance += amount;
+    }
+
 }

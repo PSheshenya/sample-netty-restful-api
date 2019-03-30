@@ -1,13 +1,18 @@
-package my.sheshenya.samplenettyrestfulapi;
+package my.sheshenya.samplenettyrestfulapi.repository;
 
-import my.sheshenya.samplenettyrestfulapi.model.Account;
+import lombok.extern.java.Log;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 
 import java.util.*;
 
-public class InMemoryTransferRepositoryImpl implements TransferRepository {
+@Log
+public class InMemoryTransactionRepositoryImpl implements TransactionRepository {
 
     private Map<String,Transaction> transactions = new HashMap<>();
+
+    public InMemoryTransactionRepositoryImpl() {
+        log.info("InMemoryTransactionRepositoryImpl instantiated");
+    }
 
     @Override
     public Transaction createTransaction(Transaction transaction) {
@@ -15,20 +20,17 @@ public class InMemoryTransferRepositoryImpl implements TransferRepository {
         String newTransactionId = UUID.randomUUID().toString();
         transaction.setId(newTransactionId);
         transaction.setDate(new Date());
-
-//        Account fromAccount = transaction.getFromAccountId();
-//
-//        transaction
-        transaction.setStatus("Done");
+        transaction.setStatus("New");
 
         transactions.put(newTransactionId, transaction);
 
+        log.info(String.format("New transaction persisted in repository: %s", transaction.toString()));
         return transaction;
-
     }
 
     @Override
     public Transaction getTransactionById(String transactionId) {
-        return null;
+        log.info(String.format("Get transaction by id %s", transactionId));
+        return transactions.get(transactionId);
     }
 }
