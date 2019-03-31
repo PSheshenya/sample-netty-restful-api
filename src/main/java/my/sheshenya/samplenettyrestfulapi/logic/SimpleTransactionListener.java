@@ -10,11 +10,12 @@ import my.sheshenya.samplenettyrestfulapi.repository.TransactionRepository;
 @Log
 public class SimpleTransactionListener implements TransactionListener {
 
+    private final int DELAY = 5000;
     private AccountRepository accountRepository;
     //private AccountOperationValidators validators;
 
     @Inject
-    SimpleTransactionListener(AccountRepository accountRepository) {
+    public SimpleTransactionListener(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
 
         log.info("SimpleTransactionListener instantiated");
@@ -61,7 +62,7 @@ public class SimpleTransactionListener implements TransactionListener {
 
                 fromAccount.withdraw(transactionAmount);
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(DELAY);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -73,7 +74,7 @@ public class SimpleTransactionListener implements TransactionListener {
                 transaction.setStatus("Wrong");
         }
 
-        log.info(String.format("Transaction Finish %s", transaction.getId()));
+        log.info(String.format("Transaction Finished %s", transaction.getId()));
 
     }
 }

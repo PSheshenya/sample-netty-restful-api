@@ -15,12 +15,12 @@ public class TransferModule extends AbstractModule {
     protected void configure() {
 
         bind(TransferService.class).to(SimpleTransferService.class).in(Singleton.class);
-        bind(AccountService.class).to(SimpleAccountService.class).in(Singleton.class);;
+        bind(AccountService.class).to(SimpleAccountService.class).in(Singleton.class);
 
 
-        bind(AccountRepository.class).to(InMemoryAccountRepositoryImpl.class).in(Singleton.class);;
+        bind(AccountRepository.class).to(InMemoryAccountRepositoryImpl.class).in(Singleton.class);
 
-        bind(TransactionRepository.class).to(InMemoryTransactionRepositoryImpl.class).in(Singleton.class);;
-        bind(TransactionListener.class).to(SimpleTransactionListener.class).in(Singleton.class);;
+        bind(TransactionRepository.class).to(InMemoryTransactionRepositoryImpl.class).in(Singleton.class);
+        bind(TransactionListener.class).to(SimpleTransactionListener.class).in(Singleton.class);
     }
 }

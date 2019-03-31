@@ -1,5 +1,6 @@
 package my.sheshenya.samplenettyrestfulapi.encoders;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +12,6 @@ import io.netty.handler.codec.serialization.ObjectEncoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -58,5 +58,13 @@ public class TransactionEncoder //extends io.netty.handler.codec.serialization.O
             throw new RuntimeException(e);
         }
         return transaction;
+    }
+
+    public static String getJsonString(Object obj) {
+        try {
+            return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            return null;
+        }
     }
 }

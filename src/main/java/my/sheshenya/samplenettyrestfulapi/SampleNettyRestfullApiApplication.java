@@ -54,7 +54,7 @@ public class SampleNettyRestfullApiApplication {
 						.host("localhost").port(8080)
 				.route(routes -> routes
 						//helth check
-						.get("/helth", (request, response) -> response.sendString(Mono.just("Ok")))
+						.get("/helth", (request, response) -> response.sendString(Mono.just("OK")))
 						.post("/echo", (request, response) -> response.send(request.receive().retain()))
 
 						// getters

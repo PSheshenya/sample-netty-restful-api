@@ -1,21 +1,18 @@
 package my.sheshenya.samplenettyrestfulapi.encoders;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import my.sheshenya.samplenettyrestfulapi.model.Transaction;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
+import my.sheshenya.samplenettyrestfulapi.model.Account;
+import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-public class TransactionEncoder //extends io.netty.handler.codec.serialization.ObjectEncoder
+public class AccountEncoder //extends io.netty.handler.codec.serialization.ObjectEncoder
 {
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -43,28 +40,21 @@ public class TransactionEncoder //extends io.netty.handler.codec.serialization.O
     /**
      * Transforms the ByteBuf to Object
      */
-    public static Transaction fromByteBuf(ByteBuf buf) {
+    public static Account fromByteBuf(ByteBuf buf) {
         byte[] bytes = new byte[buf.readableBytes()];
         buf.readBytes(bytes);
 
         ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-        Transaction transaction;
+        Account account;
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm z");
             MAPPER.setDateFormat(df);
-            transaction = MAPPER.readValue(in, Transaction.class);
+            account = MAPPER.readValue(in, Account.class);
         }
         catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return transaction;
+        return account;
     }
 
-    public static String getJsonString(Object obj) {
-        try {
-            return MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
-        } catch (JsonProcessingException e) {
-            return null;
-        }
-    }
 }

@@ -16,7 +16,7 @@ public class SimpleAccountService implements AccountService {
 
 
     @Inject
-    SimpleAccountService(AccountRepository accountRepository ) {
+    public SimpleAccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
         log.info("SimpleAccountService instantiated");
     }

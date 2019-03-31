@@ -2,7 +2,11 @@ package my.sheshenya.samplenettyrestfulapi.model;
 
 import lombok.*;
 
-public class Account {
+import java.io.Serializable;
+
+@Data
+@NoArgsConstructor
+public class Account implements Serializable {
 
     @Getter
     private String id;

@@ -17,8 +17,8 @@ public class SimpleTransferService implements TransferService {
     private final TransactionListener transactionListener;
 
     @Inject
-    SimpleTransferService(TransactionRepository transactionRepository,
-                          TransactionListener transactionListener) {
+    public SimpleTransferService(TransactionRepository transactionRepository,
+                                 TransactionListener transactionListener) {
         this.transactionRepository = transactionRepository;
         this.transactionListener = transactionListener;
 

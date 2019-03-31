@@ -35,18 +35,16 @@ public class InMemoryAccountRepositoryImpl implements AccountRepository {
     @Override
     public boolean add(Account account) {
         log.info(String.format("Adding new account"));
+
+        if (accountList.stream().anyMatch(a -> a.getId() == account.getId())) {
+            log.warning(String.format("The same account Id conflict"));
+            return false;
+        }
+
         return accountList.add(account);
     }
 
-    @Override
-    public Account update(Account account) {
-        return null;
-    }
 
-    @Override
-    public Set<Account> findAll() {
-        return accountList;
-    }
 
     public double getTotalBalance()
     {

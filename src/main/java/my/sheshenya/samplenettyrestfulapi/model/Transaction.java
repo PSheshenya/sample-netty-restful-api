@@ -44,12 +44,12 @@ public class Transaction implements Serializable {
     public String toString() {
         StringJoiner joiner = new StringJoiner(",");
         joiner
-                .add("id=").add(id)
-                .add("date=").add(date.toString())
-                .add("fromAccountId=").add(fromAccountId)
-                .add("toAccountId=").add(toAccountId)
-                .add("amount=").add(String.valueOf(amount))
-                .add("status=").add(status);
+                .add("id=" + id)
+                .add("date=" + String.valueOf(date))
+                .add("fromAccountId="+ fromAccountId)
+                .add("toAccountId="+toAccountId)
+                .add("amount="+String.valueOf(amount))
+                .add("status="+status);
         return joiner.toString();
     }
 

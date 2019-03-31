@@ -10,9 +10,6 @@ public interface AccountRepository {
     Account getAccountById(String accountId);
 
     boolean add(Account account);
-    Account update(Account account);
-
-    Set<Account> findAll();
 
     double getTotalBalance();
 }
