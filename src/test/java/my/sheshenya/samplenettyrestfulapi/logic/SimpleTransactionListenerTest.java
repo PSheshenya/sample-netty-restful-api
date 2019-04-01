@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class SimpleTransactionListenerTest {
 
-    private final int CONCURENT = 25;
+    private final int CONCURENT = 10;
 
     TransactionListener simpleTransactionListener;
     AccountRepository accountRepository;
@@ -31,6 +31,11 @@ public class SimpleTransactionListenerTest {
         accountRepository.add(new Account("a3", "3th account", 200));
         accountRepository.add(new Account("a4", "4th account", 200));
         accountRepository.add(new Account("a5", "5th account", 200));
+        accountRepository.add(new Account("a6", "6th account", 200));
+        accountRepository.add(new Account("a7", "7th account", 200));
+        accountRepository.add(new Account("a8", "8th account", 200));
+        accountRepository.add(new Account("a9", "9th account", 200));
+        accountRepository.add(new Account("a10", "10th account", 200));
 
 
         simpleTransactionListener = new SimpleTransactionListener(accountRepository);
@@ -49,7 +54,7 @@ public class SimpleTransactionListenerTest {
         double finishTotal = accountRepository.getTotalBalance();
 
         Assert.assertEquals(initTotal, finishTotal,0 );
-        Assert.assertEquals(initTotal, 1000,0 );
+        Assert.assertEquals(initTotal, 2000,0 );
 
     }
 
@@ -61,8 +66,8 @@ public class SimpleTransactionListenerTest {
         Random r = new Random();
         for(int i = 0; i < CONCURENT; i++)
         {
-            int fromInsex = r.nextInt(5);
-            int toInsex = r.nextInt(5);
+            int fromInsex = r.nextInt(11);
+            int toInsex = r.nextInt(11);
             int ammount = r.nextInt(150);
 
             callables.add(() -> {
@@ -91,7 +96,7 @@ public class SimpleTransactionListenerTest {
         double finishTotal = accountRepository.getTotalBalance();
 
         Assert.assertEquals(initTotal, finishTotal,0 );
-        Assert.assertEquals(initTotal, 1000,0 );
+        Assert.assertEquals(initTotal, 2000,0 );
 
     }
 

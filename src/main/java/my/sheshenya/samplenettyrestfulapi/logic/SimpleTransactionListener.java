@@ -53,28 +53,34 @@ public class SimpleTransactionListener implements TransactionListener {
 
 
 
-        //
-        synchronized(lock){
-            transaction.setStatus("Runing");
+        //synchronized(lock) {
 
-            double curBalance = fromAccount.getBalance();
-            if (curBalance > transactionAmount) {
+        synchronized(fromAccount) {
+            synchronized(toAccount) {
+                log.info(String.format("Transaction Runing (%s->%s):%s", fromAccountId, toAccountId, transaction.getId()));
+                transaction.setStatus("Runing");
 
-                fromAccount.withdraw(transactionAmount);
-                try {
-                    Thread.sleep(DELAY);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                double curBalance = fromAccount.getBalance();
+                if (curBalance > transactionAmount) {
 
-                toAccount.deposit(transactionAmount);
-                transaction.setStatus("Done");
+                    fromAccount.withdraw(transactionAmount);
+                    try {
+                        Thread.sleep(DELAY);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    toAccount.deposit(transactionAmount);
+                    transaction.setStatus("Done");
+                } else
+                    transaction.setStatus("Wrong");
+
+                log.info(String.format("Transaction Done (%s->%s):%s", fromAccountId, toAccountId, transaction.getId()));
+
             }
-            else
-                transaction.setStatus("Wrong");
         }
 
-        log.info(String.format("Transaction Finished %s", transaction.getId()));
+        log.info(String.format("Transaction finished %s", transaction.getId()));
 
     }
 }
