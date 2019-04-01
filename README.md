@@ -47,8 +47,12 @@ $ mvn dependency:tree
 [INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
 [INFO] ------------------------------------------------------------------------
 
-
 ```
+
+##Tests
+
+The main test is in **SimpleTransactionListenerTest** class and **doTransaction_many** method.
+Exactly this one test describe concurrency
 
 The project has two type resources: **transaction** and **account**
 
