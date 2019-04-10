@@ -2,26 +2,16 @@ package my.sheshenya.samplenettyrestfulapi.encoders;
 
 import io.netty.buffer.ByteBuf;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.math.BigDecimal;
 
 public class TransactionEncoderTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void toByteBuf() {
-        Transaction t1 = new Transaction("a1", "a2", 1000);
+        Transaction t1 = new Transaction("a1", "a2", BigDecimal.valueOf(1000));
         ByteBuf buf = TransactionEncoder.toByteBuf(t1);
 
         Assert.assertNotNull(buf);
@@ -29,7 +19,7 @@ public class TransactionEncoderTest {
 
     @Test
     public void fromByteBuf() {
-        Transaction t1 = new Transaction("a1", "a2", 1000);
+        Transaction t1 = new Transaction("a1", "a2", BigDecimal.valueOf(1000));
         ByteBuf buf = TransactionEncoder.toByteBuf(t1);
 
         Assert.assertNotNull(buf);

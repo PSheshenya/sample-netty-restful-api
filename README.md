@@ -3,16 +3,12 @@ Sample project that shows how to create microservice on Netty without using Spri
 
 In this project I going to use [Reactor Netty](https://github.com/reactor/reactor-netty) as a server. Before starting I suggest to read useful documentation [Reactor Netty Reference Guide](https://next.projectreactor.io/docs/netty/snapshot/reference/index.html) and [Reactor Netty Workshop](https://violetagg.github.io/reactor-netty-workshop/).
 
-As a dependency injection framework I choose [Guice](https://github.com/google/guice ) 
+As a dependency injection framework I choose [Guice](https://github.com/google/guice ) and [Guice ibm dev](https://www.ibm.com/developerworks/ru/library/j-guice/index.html)
 
 The project dependency tree looks like
 ```
 $ mvn dependency:tree
 
-[INFO] ---------------< my.sheshenya:sample-netty-restful-api >----------------
-[INFO] Building sample-netty-restful-api 1.0-SNAPSHOT
-[INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
 [INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ sample-netty-restful-api ---
 [INFO] my.sheshenya:sample-netty-restful-api:jar:1.0-SNAPSHOT
 [INFO] +- io.projectreactor.netty:reactor-netty:jar:0.8.6.RELEASE:compile
@@ -43,15 +39,16 @@ $ mvn dependency:tree
 [INFO] |  +- com.fasterxml.jackson.core:jackson-annotations:jar:2.9.0:compile
 [INFO] |  \- com.fasterxml.jackson.core:jackson-core:jar:2.9.8:compile
 [INFO] +- org.projectlombok:lombok:jar:1.18.6:provided
-[INFO] \- junit:junit:jar:4.11:test
-[INFO]    \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] +- junit:junit:jar:4.11:test
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] \- io.projectreactor:reactor-test:jar:3.2.6.RELEASE:test
 [INFO] ------------------------------------------------------------------------
-
+[INFO] BUILD SUCCESS
 ```
 
 ##Tests
 
-The main test is in **SimpleTransactionListenerTest** class and **doTransaction_many** method.
+The main test is in **SimpleTransactionRunnerTest** class and **doTransaction_many** method.
 Exactly this one test describe concurrency
 
 The project has two type resources: **transaction** and **account**

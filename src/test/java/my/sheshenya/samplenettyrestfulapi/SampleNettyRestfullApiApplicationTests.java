@@ -1,33 +1,25 @@
 package my.sheshenya.samplenettyrestfulapi;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.handler.codec.http.HttpMethod;
 import my.sheshenya.samplenettyrestfulapi.encoders.AccountEncoder;
 import my.sheshenya.samplenettyrestfulapi.encoders.TransactionEncoder;
 import my.sheshenya.samplenettyrestfulapi.logic.SimpleAccountService;
-import my.sheshenya.samplenettyrestfulapi.logic.SimpleTransactionListener;
 import my.sheshenya.samplenettyrestfulapi.logic.SimpleTransferService;
 import my.sheshenya.samplenettyrestfulapi.model.Account;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 import my.sheshenya.samplenettyrestfulapi.repository.InMemoryAccountRepositoryImpl;
 import my.sheshenya.samplenettyrestfulapi.repository.InMemoryTransactionRepositoryImpl;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufFlux;
 import reactor.netty.ByteBufMono;
 import reactor.netty.DisposableServer;
 import reactor.netty.http.client.HttpClient;
-import reactor.netty.http.client.HttpClientResponse;
 import reactor.netty.http.server.HttpServer;
 import reactor.netty.resources.ConnectionProvider;
 import reactor.test.StepVerifier;
-import reactor.util.function.Tuples;
 
-import java.nio.charset.Charset;
+import java.math.BigDecimal;
 import java.time.Duration;
 
 public class SampleNettyRestfullApiApplicationTests {
@@ -123,9 +115,8 @@ public class SampleNettyRestfullApiApplicationTests {
 
     @Test
     public void GET_transaction_unknown() {
-        SimpleTransferService transferService = new SimpleTransferService(
-                new InMemoryTransactionRepositoryImpl()
-                ,new SimpleTransactionListener(new InMemoryAccountRepositoryImpl()));
+        SimpleTransferService transferService =
+                new SimpleTransferService(new InMemoryTransactionRepositoryImpl());
 
         DisposableServer server =
                 HttpServer
@@ -174,8 +165,7 @@ public class SampleNettyRestfullApiApplicationTests {
     public void POST_transaction() {
 
         SimpleTransferService transferService = new SimpleTransferService(
-                new InMemoryTransactionRepositoryImpl()
-                ,new SimpleTransactionListener(new InMemoryAccountRepositoryImpl()));
+                new InMemoryTransactionRepositoryImpl());
 
 
         DisposableServer server =
@@ -210,7 +200,7 @@ public class SampleNettyRestfullApiApplicationTests {
         HttpClient httpClient = createHttpClientForContextWithPort(server, pool);
 
 
-        Transaction postTransaction  = new Transaction("a1", "a2", 100);
+        Transaction postTransaction  = new Transaction("a1", "a2", BigDecimal.valueOf(100));
 
         Flux<Integer> responseStatus_transactionId =
                 httpClient
@@ -224,9 +214,6 @@ public class SampleNettyRestfullApiApplicationTests {
                 .expectNextMatches(status -> status >= 200 && status < 400)
                 .expectComplete()
                 .verify();
-
-
-
 
 
 

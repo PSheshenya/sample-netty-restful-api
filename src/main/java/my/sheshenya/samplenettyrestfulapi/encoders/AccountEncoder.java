@@ -1,11 +1,9 @@
 package my.sheshenya.samplenettyrestfulapi.encoders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import my.sheshenya.samplenettyrestfulapi.model.Account;
-import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,8 +24,7 @@ public class AccountEncoder //extends io.netty.handler.codec.serialization.Objec
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm z");
             MAPPER.setDateFormat(df);
             MAPPER.writeValue(out, any);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return ByteBufAllocator.DEFAULT
@@ -50,8 +47,7 @@ public class AccountEncoder //extends io.netty.handler.codec.serialization.Objec
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm z");
             MAPPER.setDateFormat(df);
             account = MAPPER.readValue(in, Account.class);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return account;

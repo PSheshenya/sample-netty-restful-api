@@ -1,26 +1,21 @@
 package my.sheshenya.samplenettyrestfulapi.logic;
 
 import com.google.inject.Inject;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
+import my.sheshenya.samplenettyrestfulapi.repository.TransactionRepository;
 
-import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 
-import lombok.extern.java.Log;
-import my.sheshenya.samplenettyrestfulapi.repository.TransactionRepository;
-
-@Log
+@Log4j2
 public class SimpleTransferService implements TransferService {
-    //private final  AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
-    private final TransactionListener transactionListener;
 
     @Inject
-    public SimpleTransferService(TransactionRepository transactionRepository,
-                                 TransactionListener transactionListener) {
+    public SimpleTransferService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.transactionListener = transactionListener;
 
         log.info("SimpleTransferService instantiated");
     }
@@ -29,10 +24,10 @@ public class SimpleTransferService implements TransferService {
     public String newTransaction(Transaction transaction) {
         log.info("New transaction request...");
         Transaction registeredTransaction = transactionRepository.createTransaction(transaction);
-        log.info(String.format("Transaction registered as Id='%s'", registeredTransaction.getId()));
+        log.info("New transaction registered as Id='{}'", registeredTransaction.getId());
 
-        CompletableFuture<Void> future = CompletableFuture
-                .runAsync(() -> transactionListener.doTransaction(registeredTransaction), Executors.newCachedThreadPool());
+        CompletableFuture
+                .runAsync(() -> new SimpleTransactionRunner(registeredTransaction).run(), Executors.newCachedThreadPool());
 
         return registeredTransaction.getId();
     }
@@ -47,7 +42,7 @@ public class SimpleTransferService implements TransferService {
      * @return transaction
      */
     public Transaction getTransaction(String transactionId) {
-        log.info(String.format("Get transaction  %s", transactionId));
+        log.info("Get transaction  {}", transactionId);
         return transactionRepository.getTransactionById(transactionId);
     }
 

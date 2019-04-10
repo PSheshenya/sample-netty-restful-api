@@ -2,6 +2,8 @@ package my.sheshenya.samplenettyrestfulapi.logic;
 
 import my.sheshenya.samplenettyrestfulapi.model.Account;
 
+import java.math.BigDecimal;
+
 public interface AccountService {
 
     /**
@@ -12,6 +14,11 @@ public interface AccountService {
      */
     Account getAccount(String accountId);
 
-    double getTotalBalance();
+    /**
+     * Get total balance of all accounts
+     *
+     * @return
+     */
+    BigDecimal getTotalBalance();
 
 }

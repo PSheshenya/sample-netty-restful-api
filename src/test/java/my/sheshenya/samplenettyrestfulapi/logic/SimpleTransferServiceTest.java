@@ -3,12 +3,11 @@ package my.sheshenya.samplenettyrestfulapi.logic;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 import my.sheshenya.samplenettyrestfulapi.repository.InMemoryAccountRepositoryImpl;
 import my.sheshenya.samplenettyrestfulapi.repository.InMemoryTransactionRepositoryImpl;
-import my.sheshenya.samplenettyrestfulapi.repository.TransactionRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.math.BigDecimal;
 
 public class SimpleTransferServiceTest {
 
@@ -17,13 +16,13 @@ public class SimpleTransferServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        transferService = new SimpleTransferService(new InMemoryTransactionRepositoryImpl(), new SimpleTransactionListener(new InMemoryAccountRepositoryImpl())) ;
+        transferService = new SimpleTransferService(new InMemoryTransactionRepositoryImpl()) ;
 
     }
 
     @Test
     public void newTransaction() {
-        String newTransactionId = transferService.newTransaction(new Transaction("a1", "a2", 50));
+        String newTransactionId = transferService.newTransaction(new Transaction("a1", "a2", BigDecimal.valueOf(50)));
         Assert.assertNotNull(newTransactionId);
     }
 
@@ -33,8 +32,9 @@ public class SimpleTransferServiceTest {
         Assert.assertNull(emptyTransaction);
     }
 
+    @Test
     public void getTransaction_Exists() {
-        String newTransactionId = transferService.newTransaction(new Transaction("a1", "a2", 50));
+        String newTransactionId = transferService.newTransaction(new Transaction("a1", "a2", BigDecimal.valueOf(50)));
         Transaction newTransaction = transferService.getTransaction(newTransactionId);
 
         Assert.assertNotNull(newTransaction);

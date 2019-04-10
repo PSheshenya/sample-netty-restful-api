@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.math.BigDecimal;
 
 public class SimpleAccountServiceTest {
 
@@ -25,7 +25,7 @@ public class SimpleAccountServiceTest {
 
     @Test
     public void getTotalBalance() {
-        double balance = accountService.getTotalBalance();
-        Assert.assertEquals(balance, 600, 0);
+        BigDecimal balance = accountService.getTotalBalance();
+        Assert.assertEquals(balance, BigDecimal.valueOf(600));
     }
 }

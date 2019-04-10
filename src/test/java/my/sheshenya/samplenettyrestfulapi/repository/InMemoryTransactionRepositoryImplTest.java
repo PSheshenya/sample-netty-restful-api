@@ -1,12 +1,11 @@
 package my.sheshenya.samplenettyrestfulapi.repository;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.math.BigDecimal;
 
 public class InMemoryTransactionRepositoryImplTest {
 
@@ -21,7 +20,7 @@ public class InMemoryTransactionRepositoryImplTest {
 
     @Test
     public void createTransaction() {
-        Transaction transactionRequest = new Transaction("a1", "a2", 100);
+        Transaction transactionRequest = new Transaction("a1", "a2", BigDecimal.valueOf(100));
         Transaction transactionRequestFullfield = transactionRepository.createTransaction(transactionRequest);
 
         Assert.assertEquals(transactionRequest,transactionRequestFullfield);
@@ -30,7 +29,7 @@ public class InMemoryTransactionRepositoryImplTest {
 
     @Test
     public void getTransactionById() {
-        Transaction transactionRequest = new Transaction("a1", "a2", 100);
+        Transaction transactionRequest = new Transaction("a1", "a2", BigDecimal.valueOf(100));
         Transaction transactionRequestFullfield = transactionRepository.createTransaction(transactionRequest);
 
         Transaction transactionFromRepo = transactionRepository.getTransactionById(transactionRequestFullfield.getId());

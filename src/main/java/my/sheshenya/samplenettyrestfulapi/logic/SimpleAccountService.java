@@ -1,16 +1,13 @@
 package my.sheshenya.samplenettyrestfulapi.logic;
 
 import com.google.inject.Inject;
-import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import my.sheshenya.samplenettyrestfulapi.model.Account;
-import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 import my.sheshenya.samplenettyrestfulapi.repository.AccountRepository;
-import my.sheshenya.samplenettyrestfulapi.repository.TransactionRepository;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
+import java.math.BigDecimal;
 
-@Log
+@Log4j2
 public class SimpleAccountService implements AccountService {
     private final AccountRepository accountRepository;
 
@@ -23,12 +20,12 @@ public class SimpleAccountService implements AccountService {
 
 
     public Account getAccount(String accountId) {
-        log.info(String.format("Get account  %s", accountId));
+        log.info("Get account {}", accountId);
         return accountRepository.getAccountById(accountId);
     }
 
     @Override
-    public double getTotalBalance() {
+    public BigDecimal getTotalBalance() {
         return accountRepository.getTotalBalance();
     }
 

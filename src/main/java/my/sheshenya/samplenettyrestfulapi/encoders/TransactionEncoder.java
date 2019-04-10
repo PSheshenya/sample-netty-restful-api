@@ -1,14 +1,11 @@
 package my.sheshenya.samplenettyrestfulapi.encoders;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

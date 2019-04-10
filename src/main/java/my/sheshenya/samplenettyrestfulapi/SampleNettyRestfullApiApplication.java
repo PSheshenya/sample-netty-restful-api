@@ -1,26 +1,18 @@
 package my.sheshenya.samplenettyrestfulapi;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.util.CharsetUtil;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import my.sheshenya.samplenettyrestfulapi.encoders.TransactionEncoder;
 import my.sheshenya.samplenettyrestfulapi.logic.AccountService;
 import my.sheshenya.samplenettyrestfulapi.logic.TransferService;
 import my.sheshenya.samplenettyrestfulapi.model.Account;
 import my.sheshenya.samplenettyrestfulapi.model.Transaction;
-import my.sheshenya.samplenettyrestfulapi.encoders.TransactionEncoder;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import io.netty.handler.codec.http.HttpHeaderNames;
-import io.netty.handler.codec.http.HttpResponseStatus;
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufFlux;
-import reactor.netty.ByteBufMono;
 import reactor.netty.DisposableServer;
 import reactor.netty.http.server.HttpServer;
+
 import java.io.IOException;
 
 
