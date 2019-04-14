@@ -46,14 +46,14 @@ $ mvn dependency:tree
 [INFO] BUILD SUCCESS
 ```
 
-##Tests
+## Tests
 
 The main test is in **SimpleTransactionRunnerTest** class and **doTransaction_many** method.
 Exactly this one test describe concurrency
 
 The project has two type resources: **transaction** and **account**
 
-###creating a transaction
+### creating a transaction
 The POST request returns transaction id in response 
 ```
 sheshenya@mbp-sheshenya: ~/sample-netty-restful-api (master) $ http -v POST :8080/transaction  "fromAccountId"="a1" "toAccountId"="a2" "amount"=12
@@ -78,7 +78,7 @@ transfer-encoding: chunked
 85602986-91ac-4b28-9fd1-73cf6df9b739
 ```
 
-###info about transaction
+### info about transaction
 The GET request with transaction id returns transaction in response 
 ```
 sheshenya@mbp-sheshenya: ~/sample-netty-restful-api (master) $ http -v :8080/transaction/85602986-91ac-4b28-9fd1-73cf6df9b739
@@ -115,7 +115,7 @@ transfer-encoding: chunked
 Done
 
 ```
-###info about account
+### info about account
 Also we can check account
 
 ```
